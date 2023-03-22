@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -25,5 +25,16 @@ class Hashtag(Base):
     name = Column(String(50), unique=True, nullable=False)
     creation_date = Column(DateTime, default=datetime.now)
 
+
+class Articles(Base):
+
+    __tablename__ = "articles"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(70), unique=True, nullable=False)
+    content = Column(Text, nullable=False)
+    creation_date = Column(DateTime, default=datetime.now)
+    author_id = (Integer, ForeignKey("users.id"))
+
     def __repr__(self):
-        return f"Hashtag({self.name})"
+        return f"Article({self.title})"
