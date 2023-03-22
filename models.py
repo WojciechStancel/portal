@@ -51,5 +51,6 @@ class Articles(Base):
 
     author = relationship("Author", back_populates="articles")
     hashtags = relationship("Hashtag", secondary=articles_hashtags, back_populates="articles")
+
     def __repr__(self):
         return f"Article({self.title})"
